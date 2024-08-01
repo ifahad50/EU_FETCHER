@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  eu_fetcher:
+    image: eu_fetcher
+    container_name: eu_fetcher
+    restart: always
+    environment:
+      INTERVAL: ${INTERVAL}
+      URL: ${URL}
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_CHANNEL_ID: ${DISCORD_CHANNEL_ID}
