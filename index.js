@@ -114,7 +114,7 @@ async function fetchAndNormalizeContent() {
 		await page.goto(url, { waitUntil: 'networkidle2', timeout: 50000 })
 
 		const content = await page.content()
-		await browser.close()
+		// await browser.close()
 
 		const $ = cheerio.load(content)
 
@@ -145,6 +145,10 @@ async function fetchAndNormalizeContent() {
 
 		console.error('Error fetching the page or network issue:', error?.message)
 		return null
+	} finally {
+		if (browser) {
+			await browser.close()
+		}
 	}
 }
 
