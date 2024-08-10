@@ -44,10 +44,11 @@ function generateRandomMAC() {
 	return macAddress
 }
 
-async function fetchAndNormalizeContent() {
-	try {
-		errorNotificationSentFlag = false
-		const browser = await puppeteer.launch({
+let browser
+let pageCount = 0
+async function getBrowser() {
+	if (!browser || pageCount > 50) {
+		browser = await puppeteer.launch({
 			headless: true,
 			args: [
 				'--no-sandbox',
@@ -65,6 +66,16 @@ async function fetchAndNormalizeContent() {
 				height: 1080,
 			},
 		})
+		pageCount = 0
+	}
+	pageCount++
+	return browser
+}
+
+async function fetchAndNormalizeContent() {
+	try {
+		errorNotificationSentFlag = false
+		const browser = await getBrowser()
 
 		const page = await browser.newPage()
 
