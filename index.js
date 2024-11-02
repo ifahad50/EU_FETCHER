@@ -48,17 +48,17 @@ async function fetchAndNormalizeContent() {
 	try {
 		errorNotificationSentFlag = false
 		browser = await puppeteer.launch({
-			headless: true,
+			headless: 'new',
+			executablePath: '/usr/bin/google-chrome',
 			args: [
 				'--no-sandbox',
 				'--disable-setuid-sandbox',
 				'--disable-dev-shm-usage',
-				'--disable-accelerated-2d-canvas',
-				'--no-first-run',
-				'--no-zygote',
-				'--single-process',
 				'--disable-gpu',
-				'--window-size=1920,1080', // Set window size to standard
+				'--disable-software-rasterizer',
+				'--disable-extensions',
+				'--single-process',
+				'--no-zygote',
 			],
 			defaultViewport: {
 				width: 1920,
